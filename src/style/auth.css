@@ -1,0 +1,15 @@
+.loginForm {
+  padding: 20px;
+  height: 420px;
+  width: 400px;
+  margin: 120px auto;
+  background-color: rgba(250, 71, 71, 0.4) !important;
+}
+
+.loginBtn {
+  margin: 15px 0;
+}
+
+.loginForm label {
+  color: #fff !important;
+}
