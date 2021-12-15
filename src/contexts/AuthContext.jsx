@@ -5,8 +5,6 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
-import { Mail } from "@material-ui/icons";
 import axios from "axios";
 import { USERS_API } from "./consts";
 
@@ -33,26 +31,15 @@ export const AuthContextProvider = ({ children }) => {
     setPasswordError("");
   };
 
-  function writeUserData(userId, name, email) {
-    const db = getDatabase();
-    set(ref(db, "users/" + userId), {
-      username: name,
-      email: email,
-    });
-  }
-
   const handleLogIn = () => {
     clearErrors();
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
-
         // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
         console.log(error);
         console.log(errorMessage);
@@ -70,6 +57,8 @@ export const AuthContextProvider = ({ children }) => {
           case "auth/wrong-password":
             setPasswordError("Wrong password");
             break;
+          default:
+            break;
         }
       });
 
@@ -81,7 +70,7 @@ export const AuthContextProvider = ({ children }) => {
       contacts: [],
     };
     console.log(user);
-    const data = await axios.post(USERS_API, user);
+    await axios.post(USERS_API, user);
   };
 
   const handleSignup = () => {
@@ -112,6 +101,8 @@ export const AuthContextProvider = ({ children }) => {
             break;
           case "auth/weak-password":
             setPasswordError("Weak password");
+            break;
+          default:
             break;
         }
         // ..

@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { createContext, useContext, useReducer } from "react";
 
-import { useHistory } from "react-router";
 import { useAuth } from "./AuthContext";
-import { GET_CONTACTS, USERS_API, USER_DETAILS } from "./consts";
+import { GET_CONTACTS, USERS_API } from "./consts";
 
 export const contactContext = createContext();
 export const useContacts = () => {
@@ -29,7 +28,7 @@ const reducer = (state = INIT_STATE, action) => {
 
 const ContactContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
-  const history = useHistory();
+
   const { user } = useAuth();
 
   //////////////////////  CRUD START   ///////////////////////////

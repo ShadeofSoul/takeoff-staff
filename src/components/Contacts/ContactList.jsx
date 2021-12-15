@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { Box, Modal, IconButton } from "@material-ui/core";
-import { useAuth } from "../../contexts/AuthContext";
+
 import { useContacts } from "../../contexts/ContactContext";
 import EditContact from "./EditContact";
 
@@ -42,11 +42,11 @@ const style = {
 
 const ContactList = () => {
   const [hover, setHover] = useState(true);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [inx, setInx] = useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { contactsData, deleteContact, editContact } = useContacts();
+  const { contactsData, deleteContact } = useContacts();
 
   const classes = useStyles();
 
@@ -62,10 +62,6 @@ const ContactList = () => {
   const handleDelete = (index, id) => {
     contactsData[0].contacts.splice(index, 1);
     deleteContact(id, contactsData[0]);
-  };
-
-  const handleEdit = () => {
-    editContact();
   };
 
   return (
@@ -98,22 +94,16 @@ const ContactList = () => {
             />
           </Card>
           <div className="answer">
-            <IconButton>
-              <DeleteIcon
-                onClick={() => handleDelete(index, contactsData[0].id)}
-                fontSize="large"
-                color="error"
-              />
+            <IconButton onClick={() => handleDelete(index, contactsData[0].id)}>
+              <DeleteIcon fontSize="large" color="error" />
             </IconButton>
-            <IconButton>
-              <EditIcon
-                onClick={() => {
-                  setInx(index);
-                  handleOpen();
-                }}
-                fontSize="large"
-                color="error"
-              />
+            <IconButton
+              onClick={() => {
+                setInx(index);
+                handleOpen();
+              }}
+            >
+              <EditIcon fontSize="large" color="error" />
             </IconButton>
             <Modal
               open={open}

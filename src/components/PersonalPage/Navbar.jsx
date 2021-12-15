@@ -1,17 +1,16 @@
 import React from "react";
-import { alpha, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import { useAuth } from "../../contexts/AuthContext";
-import InputBase from "@material-ui/core/InputBase";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import SearchIcon from "@material-ui/icons/Search";
+
 import logo from "../../img/logo.svg";
 import { Box, Modal, Typography } from "@material-ui/core";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import "../../style/navbar.css";
-import { useHistory } from "react-router";
+
 import AddContact from "../Contacts/AddContact";
 
 const useStyles = makeStyles((theme) => ({
@@ -58,7 +57,7 @@ export default function Navbar() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const history = useHistory();
+
   const classes = useStyles();
 
   return (
@@ -86,8 +85,8 @@ export default function Navbar() {
               <PersonAddIcon fontSize="large" />
             </IconButton>
 
-            <IconButton>
-              <ExitToAppIcon onClick={() => handleLogout()} fontSize="large" />
+            <IconButton onClick={() => handleLogout()}>
+              <ExitToAppIcon fontSize="large" />
             </IconButton>
             <Modal
               open={open}

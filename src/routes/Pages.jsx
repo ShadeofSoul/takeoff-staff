@@ -3,7 +3,6 @@ import { BrowserRouter } from "react-router-dom";
 import { Route, Switch } from "react-router-dom";
 
 import Main from "../components/Main";
-import PersonalPage from "../components/PersonalPage/PersonalPage";
 import { AuthContextProvider } from "../contexts/AuthContext";
 import ContactContextProvider from "../contexts/ContactContext";
 import "../firebase/firebase";

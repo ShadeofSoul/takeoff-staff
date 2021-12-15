@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Grid,
   Paper,
@@ -14,7 +14,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import "../style/auth.css";
 import { useAuth } from "../contexts/AuthContext";
 import { Alert } from "@material-ui/lab";
-import { useHistory } from "react-router-dom";
 
 const avatarStyle = { backgroundColor: "#961414" };
 
@@ -32,7 +31,6 @@ const Auth = () => {
     passwordError,
     clearErrors,
   } = useAuth();
-  const history = useHistory();
 
   return (
     <Grid>
@@ -43,7 +41,7 @@ const Auth = () => {
           </Avatar>
           <h1>{!hasAccount ? "Sign In" : "Sign Up"}</h1>
         </Grid>
-        {passwordError !== "" || emailError != "" ? (
+        {passwordError !== "" || emailError !== "" ? (
           <Alert style={{ marginBottom: 20 }} variant="filled" severity="error">
             {passwordError || emailError}
           </Alert>

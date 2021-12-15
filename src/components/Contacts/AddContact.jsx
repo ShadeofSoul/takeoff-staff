@@ -4,7 +4,7 @@ import { useContacts } from "../../contexts/ContactContext";
 import SaveIcon from "@material-ui/icons/Save";
 
 export default function AddContact() {
-  const { contactsData, getContactsData, addContact } = useContacts();
+  const { contactsData, addContact } = useContacts();
   const [addedCon, setAddedCon] = useState(contactsData[0]);
 
   const [contact, setContact] = useState({

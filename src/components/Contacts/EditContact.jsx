@@ -2,7 +2,7 @@ import { TextField, Button } from "@material-ui/core";
 import React, { useState } from "react";
 
 import SaveIcon from "@material-ui/icons/Save";
-import { useParams } from "react-router-dom";
+
 import { useContacts } from "../../contexts/ContactContext";
 
 export default function EditContact({ index }) {
