@@ -34,10 +34,6 @@ const Auth = () => {
   } = useAuth();
   const history = useHistory();
 
-  useEffect(() => {
-    history.push("/home");
-  }, [email]);
-
   return (
     <Grid>
       <Paper className="loginForm" elevation={10}>
@@ -91,7 +87,7 @@ const Auth = () => {
               color="secondary"
               variant="contained"
               fullWidth
-              onClick={handleSignup}
+              onClick={() => handleSignup()}
             >
               Sign up
             </Button>
@@ -118,7 +114,7 @@ const Auth = () => {
               color="secondary"
               variant="contained"
               fullWidth
-              onClick={handleLogIn}
+              onClick={() => handleLogIn()}
             >
               Sign in
             </Button>

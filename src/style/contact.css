@@ -1,10 +1,85 @@
 .contacts {
   width: 100%;
-  height: 100vh;
 }
 .contactList {
   background-color: rgba(250, 71, 71, 0.4);
   padding: 50px 100px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+}
+
+.faq {
+  max-width: 100%;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+}
+.answer {
+  width: 86%;
+  background-color: rgba(10, 10, 10, 0.4);
+  display: flex;
+  justify-content: space-around;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1.4s ease;
+}
+
+.faq.active .answer {
+  max-height: 300px;
+  animation: fade 1s ease-in-out;
+}
+
+@keyframes fade {
+  from {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+}
+
+.addContact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.addContact div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .contactList {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 770px) {
+  .contactList {
+    grid-template-columns: 1fr;
+    padding: 50px 100px;
+  }
+  .contacts {
+    margin-left: 70px;
+  }
+  .answer {
+    width: 65%;
+  }
+}
+
+@media (max-width: 440px) {
+  .contactList {
+    padding: 20px;
+  }
+  .contacts {
+    margin-left: 0px;
+  }
+  .answer {
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .makeStyles-root-13 {
+    width: 330px !important;
+  }
 }

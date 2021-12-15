@@ -8,40 +8,17 @@ import InputBase from "@material-ui/core/InputBase";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import SearchIcon from "@material-ui/icons/Search";
 import logo from "../../img/logo.svg";
-import { Typography } from "@material-ui/core";
+import { Box, Modal, Typography } from "@material-ui/core";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import "../../style/navbar.css";
+import { useHistory } from "react-router";
+import AddContact from "../Contacts/AddContact";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
 
-  search: {
-    position: "relative",
-
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto",
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   inputRoot: {
     color: "inherit",
   },
@@ -63,8 +40,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const style = {
+  position: "absolute",
+  backgroundColor: " rgba(225, 225, 225, 0.5)",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 export default function Navbar() {
-  const { email } = useAuth();
+  const { user, handleLogout } = useAuth();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const history = useHistory();
   const classes = useStyles();
 
   return (
@@ -83,29 +77,28 @@ export default function Navbar() {
               </IconButton>
             </div>
             <Typography color="textPrimary" variant="h6" gutterBottom>
-              {email}
+              {user}
             </Typography>
           </div>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
+
           <div>
-            <IconButton>
+            <IconButton onClick={handleOpen}>
               <PersonAddIcon fontSize="large" />
             </IconButton>
+
             <IconButton>
-              <ExitToAppIcon fontSize="large" />
+              <ExitToAppIcon onClick={() => handleLogout()} fontSize="large" />
             </IconButton>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <AddContact />
+              </Box>
+            </Modal>
           </div>
         </Toolbar>
       </AppBar>

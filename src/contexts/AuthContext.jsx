@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -6,6 +6,9 @@ import {
   signOut,
 } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
+import { Mail } from "@material-ui/icons";
+import axios from "axios";
+import { USERS_API } from "./consts";
 
 const authContext = createContext();
 export const useAuth = () => {
@@ -72,6 +75,14 @@ export const AuthContextProvider = ({ children }) => {
 
     console.log(email);
   };
+  const addUser = async (email) => {
+    let user = {
+      name: email,
+      contacts: [],
+    };
+    console.log(user);
+    const data = await axios.post(USERS_API, user);
+  };
 
   const handleSignup = () => {
     clearErrors();
@@ -79,7 +90,8 @@ export const AuthContextProvider = ({ children }) => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user.uid);
+        console.log(user.email);
+        addUser(user.email);
         // ...
       })
       .catch((error) => {
@@ -108,13 +120,27 @@ export const AuthContextProvider = ({ children }) => {
 
   const handleLogout = () => {
     signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-      })
+      .then(() => {})
       .catch((error) => {
         // An error happened.
       });
   };
+
+  const authListener = () => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        clearInputs();
+        setUser(user.email);
+        console.log(user.email);
+      } else {
+        setUser("");
+      }
+    });
+  };
+
+  useEffect(() => {
+    authListener();
+  }, []);
 
   const values = {
     email,

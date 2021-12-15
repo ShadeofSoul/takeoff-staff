@@ -16,6 +16,8 @@ code {
     monospace;
 }
 
-.MuiAppBar-colorPrimary {
-  background-color: rgba(225, 225, 225, 0.4) !important;
+@media (max-width: 1024px) {
+  body {
+    background-image: url("https://mfiles.alphacoders.com/801/thumb-1920-801196.jpg");
+  }
 }
